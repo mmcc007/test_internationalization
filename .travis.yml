@@ -3,7 +3,7 @@ jobs:
   include:
   - &IOS_RUN
     stage: Locale Integration Test
-    env: ios default app english (sanity check)
+    env: ios default app internationalized english
     os: osx
     osx_image: xcode9.0
     before_install:
@@ -20,22 +20,26 @@ jobs:
       - brew link --overwrite cocoapods
 
       # install pre-compiled flutter
-      - FLUTTER_CHANNEL=stable
-      - FLUTTER_VERSION=1.0.0-${FLUTTER_CHANNEL}
-      - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_v${FLUTTER_VERSION}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
+#      - FLUTTER_CHANNEL=stable
+#      - FLUTTER_VERSION=1.0.0-${FLUTTER_CHANNEL}
+#      - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_v${FLUTTER_VERSION}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
+
+      - git clone https://github.com/flutter/flutter.git -b master
+
       - export PATH="$PATH":"$HOME/.pub-cache/bin"
       - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+      - flutter precache
       - flutter doctor -v
       - flutter devices
     before_script:
-    # create and start simulator
+      # create and start simulator
       - script/ios_simulator_cli.sh iPhone-X create iPhone-X iOS-11-4
       - script/ios_simulator_cli.sh iPhone-X boot
     script:
-      - cd default_app; flutter driver lib/main.dart
+      - cd default_app_int; flutter driver lib/main.dart
 
   - <<: *IOS_RUN
-    env: ios default app french (sanity check)
+    env: ios default app internationalized french
     before_script: &START_SIMULATOR_WITH_LOCALE_FRENCH
       # change language to french
       - script/ios_simulator_cli.sh iPhone-X create iPhone-X iOS-11-4
@@ -44,12 +48,12 @@ jobs:
       - flutter devices
 
   - <<: *IOS_RUN
-    env: ios default app internationalized english
+    env: ios default app english (sanity check)
     script:
-      - cd default_app_int; flutter driver lib/main.dart
+      - cd default_app; flutter driver lib/main.dart
 
   - <<: *IOS_RUN
-    env: ios default app internationalized french
+    env: ios default app french (sanity check)
     before_script: *START_SIMULATOR_WITH_LOCALE_FRENCH
     script:
-      - cd default_app_int; flutter driver lib/main.dart
+      - cd default_app; flutter driver lib/main.dart
