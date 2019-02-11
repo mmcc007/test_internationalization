@@ -1,9 +1,9 @@
 {
   "@@locale": "fr",
   "@@last_modified": "2019-02-09T16:56:53.658556",
-  "title": "Exemple de captures d'écran",
+  "title": "Flutter Demo Page d'accueil",
   "@title": {
-    "description": "Title for the Example application",
+    "description": "Title for the application",
     "type": "text",
     "placeholders": {}
   },

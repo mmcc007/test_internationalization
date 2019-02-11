@@ -1,8 +1,8 @@
 {
-  "@@last_modified": "2019-02-09T17:57:54.852324",
-  "title": "Screenshots Example",
+  "@@last_modified": "2019-02-11T11:16:11.068866",
+  "title": "Flutter Demo Home Page",
   "@title": {
-    "description": "Title for the Example application",
+    "description": "Title for the application",
     "type": "text",
     "placeholders": {}
   },

@@ -19,8 +19,8 @@ import 'l10n/messages_all.dart';
 // For tips on internationalization see:
 // https://phraseapp.com/blog/posts/how-to-internationalize-a-flutter-app
 
-class ExampleLocalizations {
-  static Future<ExampleLocalizations> load(Locale locale) {
+class DemoLocalizations {
+  static Future<DemoLocalizations> load(Locale locale) {
     final String name = locale.countryCode == null || locale.countryCode.isEmpty
         ? locale.languageCode
         : locale.toString();
@@ -28,20 +28,19 @@ class ExampleLocalizations {
 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      return ExampleLocalizations();
+      return DemoLocalizations();
     });
   }
 
-  static ExampleLocalizations of(BuildContext context) {
-    return Localizations.of<ExampleLocalizations>(
-        context, ExampleLocalizations);
+  static DemoLocalizations of(BuildContext context) {
+    return Localizations.of<DemoLocalizations>(context, DemoLocalizations);
   }
 
   String get title {
     return Intl.message(
-      'Screenshots Example',
+      'Flutter Demo Home Page',
       name: 'title',
-      desc: 'Title for the Example application',
+      desc: 'Title for the application',
     );
   }
 
@@ -62,19 +61,19 @@ class ExampleLocalizations {
   }
 }
 
-class ExampleLocalizationsDelegate
-    extends LocalizationsDelegate<ExampleLocalizations> {
-  const ExampleLocalizationsDelegate();
+class DemoLocalizationsDelegate
+    extends LocalizationsDelegate<DemoLocalizations> {
+  const DemoLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) => ['en', 'fr'].contains(locale.languageCode);
 
   @override
-  Future<ExampleLocalizations> load(Locale locale) =>
-      ExampleLocalizations.load(locale);
+  Future<DemoLocalizations> load(Locale locale) =>
+      DemoLocalizations.load(locale);
 
   @override
-  bool shouldReload(ExampleLocalizationsDelegate old) => false;
+  bool shouldReload(DemoLocalizationsDelegate old) => false;
 }
 
 class DemoApp extends StatelessWidget {
@@ -82,10 +81,10 @@ class DemoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ExampleLocalizations.of(context).title),
+        title: Text(DemoLocalizations.of(context).title),
       ),
       body: Center(
-        child: Text(ExampleLocalizations.of(context).title),
+        child: Text(DemoLocalizations.of(context).title),
       ),
     );
   }
@@ -103,7 +102,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (context) => ExampleLocalizations.of(context).title,
+      onGenerateTitle: (context) => DemoLocalizations.of(context).title,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -116,11 +115,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-//      home: MyHomePage(title: ExampleLocalizations.of(context).title),
-      home: MyHomePage(title: 'Screenshots Example'),
+//      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
       localizationsDelegates: [
         // ... app-specific localization delegate[s] here
-        const ExampleLocalizationsDelegate(),
+        const DemoLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
@@ -140,7 +139,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -151,7 +150,7 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+//  final String title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -183,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(ExampleLocalizations.of(context).title),
+        title: Text(DemoLocalizations.of(context).title),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -206,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              ExampleLocalizations.of(context).counterText,
+              DemoLocalizations.of(context).counterText,
             ),
             Text(
               '$_counter',
@@ -217,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: ExampleLocalizations.of(context).counterIncrementButtonTooltip,
+        tooltip: DemoLocalizations.of(context).counterIncrementButtonTooltip,
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

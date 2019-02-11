@@ -22,6 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "counterIncrementButtonTooltip" : MessageLookupByLibrary.simpleMessage("Incrément"),
     "counterText" : MessageLookupByLibrary.simpleMessage("Vous avez appuyé sur le bouton autant de fois:"),
-    "title" : MessageLookupByLibrary.simpleMessage("Exemple de captures d\'écran")
+    "title" : MessageLookupByLibrary.simpleMessage("Flutter Demo Page d\'accueil")
   };
 }
