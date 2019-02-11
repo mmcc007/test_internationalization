@@ -49,7 +49,8 @@ exit_if_no_simulator() {
 }
 
 get_uid() {
-  echo $( xcrun simctl list | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([-0-9A-F]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}' )
+  # get uid of last matching simulator
+  echo $( xcrun simctl list | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([-0-9A-F]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}'  | awk '{print $NF}' )
 }
 
 create () {
@@ -102,7 +103,7 @@ open_simulator () {
 
 get_status () {
   # get status of last matching simulator
-  echo $(xcrun simctl list devices | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([a-zA-Z]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}' | awk '{print $NF}')
+  echo $(xcrun simctl list devices | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([a-zA-Z]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}' | awk '{print $NF}' )
 }
 
 shutdown () {
