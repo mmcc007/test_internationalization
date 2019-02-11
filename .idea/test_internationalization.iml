@@ -5,6 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/default_app/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/default_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/default_app_int/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/default_app_int/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/default_app_int/build" />
     </content>
