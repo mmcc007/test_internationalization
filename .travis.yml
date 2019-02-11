@@ -1,0 +1,27 @@
+&IOS_RUN
+  env: ios default app
+  os: osx
+  language: generic
+  osx_image: xcode9.0
+  before_script:
+  - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+    # skip homebrew update
+  - export HOMEBREW_NO_AUTO_UPDATE=1
+    #        - brew update
+  - brew install libimobiledevice || echo 'ignore exit(1)'
+  - brew install ideviceinstaller
+  - brew install ios-deploy
+  - brew install cocoapods || echo 'ignore exit(1)'
+  - brew link --overwrite cocoapods
+  - git clone https://github.com/flutter/flutter.git -b stable
+  - export PATH="$PATH":"$HOME/.pub-cache/bin"
+  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+  - flutter precache
+  - flutter doctor -v
+  - flutter devices
+  script:
+  - cd default_app; flutter driver lib/main.dart
+
+*IOS_RUN
+  env: ios default app internationalized
+  script: cd default_app_int; flutter driver lib/main.dart
