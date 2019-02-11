@@ -1,7 +1,8 @@
 language: generic
-matrix:
+jobs:
   include:
   - &IOS_RUN
+    stage: test internationalization
     env: ios default app english (sanity check)
     os: osx
     osx_image: xcode9.0

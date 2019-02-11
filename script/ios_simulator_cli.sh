@@ -101,7 +101,8 @@ open_simulator () {
 }
 
 get_status () {
-  echo $(xcrun simctl list devices | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([a-zA-Z]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}')
+  # get status of last matching simulator
+  echo $(xcrun simctl list devices | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([a-zA-Z]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}' | awk '{print $NF}')
 }
 
 shutdown () {
