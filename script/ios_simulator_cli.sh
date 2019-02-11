@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# #!/bin/bash
 # Copyright (c) <2018> <Maksym Rusynyk>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -48,7 +50,7 @@ exit_if_no_simulator() {
 
 get_uid() {
   # get uid of last matching simulator
-  echo $( xcrun simctl list | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([-0-9A-F]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}'  | awk '{print $NF}' )
+  echo $( xcrun simctl list | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([-0-9A-F]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}' | awk '{print $NF}' )
 }
 
 create () {

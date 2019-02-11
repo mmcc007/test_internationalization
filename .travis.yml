@@ -7,7 +7,11 @@ jobs:
     os: osx
     osx_image: xcode9.0
     before_install:
-      - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+#      - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+      # create and start simulator
+      - script/ios_simulator_cli.sh iPhone-X create iPhone-X iOS-11-4
+      - script/ios_simulator_cli.sh iPhone-X boot
+
       # skip homebrew update
       - export HOMEBREW_NO_AUTO_UPDATE=1
       #    -brew update
@@ -32,14 +36,14 @@ jobs:
   - <<: *IOS_RUN
     env: ios default app french (sanity check)
     before_script: &CHANGE_LANGUAGE_TO_FRENCH
-      - xcrun simctl list
-      - testStatus="Shutdown Shutdown Shutdown Shutdown Booted"
-      - lastTestStatus="$(echo $testStatus | awk '{print $NF}')"
-      - echo $lastTestStatus
+#      - xcrun simctl list
+#      - testStatus="Shutdown Shutdown Shutdown Shutdown Booted"
+#      - lastTestStatus="$(echo $testStatus | awk '{print $NF}')"
+#      - echo $lastTestStatus
       # change language to french
-      - script/ios_simulator_cli.sh "iPhone X" shutdown
-      - script/ios_simulator_cli.sh "iPhone X" locale fr
-      - script/ios_simulator_cli.sh "iPhone X" boot
+      - script/ios_simulator_cli.sh "iPhone-X" shutdown
+      - script/ios_simulator_cli.sh "iPhone-X" locale fr
+      - script/ios_simulator_cli.sh "iPhone-X" boot
       - flutter devices
 
   - <<: *IOS_RUN
