@@ -8,9 +8,6 @@ jobs:
     osx_image: xcode9.0
     before_install:
 #      - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
-      # create and start simulator
-      - script/ios_simulator_cli.sh iPhone-X create iPhone-X iOS-11-4
-      - script/ios_simulator_cli.sh iPhone-X boot
 
       # skip homebrew update
       - export HOMEBREW_NO_AUTO_UPDATE=1
@@ -30,20 +27,20 @@ jobs:
       - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
       - flutter doctor -v
       - flutter devices
+    before_script:
+    # create and start simulator
+      - script/ios_simulator_cli.sh iPhone-X create iPhone-X iOS-11-4
+      - script/ios_simulator_cli.sh iPhone-X boot
     script:
       - cd default_app; flutter driver lib/main.dart
 
   - <<: *IOS_RUN
     env: ios default app french (sanity check)
-    before_script: &CHANGE_LANGUAGE_TO_FRENCH
-#      - xcrun simctl list
-#      - testStatus="Shutdown Shutdown Shutdown Shutdown Booted"
-#      - lastTestStatus="$(echo $testStatus | awk '{print $NF}')"
-#      - echo $lastTestStatus
+    before_script: &START_SIMULATOR_WITH_LOCALE_FRENCH
       # change language to french
-      - script/ios_simulator_cli.sh "iPhone-X" shutdown
-      - script/ios_simulator_cli.sh "iPhone-X" locale fr
-      - script/ios_simulator_cli.sh "iPhone-X" boot
+      - script/ios_simulator_cli.sh iPhone-X create iPhone-X iOS-11-4
+      - script/ios_simulator_cli.sh iPhone-X locale fr
+      - script/ios_simulator_cli.sh iPhone-X boot
       - flutter devices
 
   - <<: *IOS_RUN
@@ -53,6 +50,6 @@ jobs:
 
   - <<: *IOS_RUN
     env: ios default app internationalized french
-    before_install: *CHANGE_LANGUAGE_TO_FRENCH
+    before_script: *START_SIMULATOR_WITH_LOCALE_FRENCH
     script:
       - cd default_app_int; flutter driver lib/main.dart
