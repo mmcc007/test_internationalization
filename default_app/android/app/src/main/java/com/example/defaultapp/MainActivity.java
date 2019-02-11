@@ -1,4 +1,4 @@
-package com.example.testinternationalization;
+package com.example.defaultapp;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
