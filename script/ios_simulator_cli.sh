@@ -21,6 +21,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+set -x
+
 SIMULATOR_NAME="$1"
 COMMAND="$2"
 
@@ -99,7 +101,7 @@ open_simulator () {
 }
 
 get_status () {
-  echo $(xcrun simctl list | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([a-zA-Z]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}')
+  echo $(xcrun simctl list devices | grep -w "${SIMULATOR_NAME}" | awk 'match($0, /\(([a-zA-Z]+)\)/) { print substr( $0, RSTART + 1, RLENGTH - 2 )}')
 }
 
 shutdown () {

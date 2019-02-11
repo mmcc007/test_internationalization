@@ -30,6 +30,7 @@ matrix:
   - <<: *IOS_RUN
     env: ios default app french (sanity check)
     before_script: &CHANGE_LANGUAGE_TO_FRENCH
+      - xcrun simctl list
       # change language to french
       - script/ios_simulator_cli.sh "iPhone X" shutdown
       - script/ios_simulator_cli.sh "iPhone X" locale fr
