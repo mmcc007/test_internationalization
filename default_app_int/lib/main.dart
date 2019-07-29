@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_driver/driver_extension.dart';
+import 'dart:convert' as c;
+import 'dart:ui' as ui;
 
 // This imported file was generated in two steps, using the Dart intl tools. With the
 // app's root directory (the one that contains pubspec.yaml) as the current
@@ -91,9 +93,21 @@ class DemoApp extends StatelessWidget {
 }
 
 void main() {
+  final DataHandler handler = (_) async {
+    final localizations =
+        await DemoLocalizations.load(Locale(ui.window.locale.languageCode));
+    final response = {
+      'counterIncrementButtonTooltip':
+          localizations.counterIncrementButtonTooltip,
+      'counterText': localizations.counterText,
+      'title': localizations.title,
+      'locale': Intl.defaultLocale
+    };
+    return Future.value(c.jsonEncode(response));
+  };
   // Enable integration testing with the Flutter Driver extension.
   // See https://flutter.io/testing/ for more info.
-  enableFlutterDriverExtension();
+  enableFlutterDriverExtension(handler: handler);
   runApp(MyApp());
 }
 
